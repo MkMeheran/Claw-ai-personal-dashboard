@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { RetroCard } from '@/components/ui/RetroCard';
 import { RetroButton } from '@/components/ui/RetroButton';
 import { RetroInput } from '@/components/ui/RetroInput';
-import { Activity, Calendar, TrendingUp } from 'lucide-react';
+import { Activity, Calendar, TrendingUp, RefreshCw } from 'lucide-react';
 import { useAnalyticsStore } from '@/store/useAnalyticsStore';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
@@ -15,6 +15,13 @@ export default function AnalyticsPage() {
   const [focusScore, setFocusScore] = useState(5);
   const [mood, setMood] = useState('Neutral');
   const [notes, setNotes] = useState('');
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await fetchLogs();
+    setTimeout(() => setIsRefreshing(false), 500);
+  };
 
   useEffect(() => {
     fetchLogs();
@@ -42,6 +49,12 @@ export default function AnalyticsPage() {
             Track your daily productivity and mood.
           </p>
         </div>
+        <RetroButton 
+          onClick={handleRefresh} 
+          icon={RefreshCw} 
+          label=""
+          className={isRefreshing ? 'animate-spin' : ''} 
+        />
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

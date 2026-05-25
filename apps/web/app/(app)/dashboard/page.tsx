@@ -1,11 +1,37 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import { RetroCard } from '@/components/ui/RetroCard';
 import { RetroButton } from '@/components/ui/RetroButton';
 import { RetroBadge } from '@/components/ui/RetroBadge';
 import { 
-  Timer, Clipboard, Image as ImageIcon, Link2, Plus 
+  Timer, Clipboard, Image as ImageIcon, Link2, Plus, RefreshCw 
 } from 'lucide-react';
+import { useClipboardStore } from '@/store/useClipboardStore';
+import { useMediaStore } from '@/store/useMediaStore';
+import Link from 'next/link';
 
 export default function DashboardPage() {
+  const { items: clipboardItems, fetchItems: fetchClipboard } = useClipboardStore();
+  const { items: mediaItems, fetchMedia } = useMediaStore();
+
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  useEffect(() => {
+    fetchClipboard();
+    fetchMedia();
+  }, [fetchClipboard, fetchMedia]);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await Promise.all([fetchClipboard(), fetchMedia()]);
+    setTimeout(() => setIsRefreshing(false), 500);
+  };
+
+  const recentUrls = clipboardItems.filter(i => i.type === 'url').slice(0, 3);
+  const recentClips = clipboardItems.slice(0, 3);
+  const recentMedia = mediaItems.slice(0, 4);
+
   return (
     <div className="space-y-6">
       <header className="flex justify-between items-center">
@@ -17,7 +43,15 @@ export default function DashboardPage() {
             Welcome back, Operator. All systems operational.
           </p>
         </div>
-        <RetroButton icon={Plus} label="New Entry" variant="primary" />
+        <div className="flex items-center gap-2">
+          <RetroButton 
+            onClick={handleRefresh} 
+            icon={RefreshCw} 
+            label=""
+            className={isRefreshing ? 'animate-spin' : ''} 
+          />
+          <RetroButton icon={Plus} label="New Entry" variant="primary" />
+        </div>
       </header>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -37,33 +71,51 @@ export default function DashboardPage() {
         </RetroCard>
 
         <RetroCard title="Recent Clips" icon={Clipboard} accentColor="amber">
-          <div className="space-y-2">
-            {[1, 2, 3].map(i => (
-              <div key={i} className="flex justify-between items-center p-2 border-2 border-stone-900 bg-stone-50 rounded">
-                <span className="text-sm font-bold truncate flex-1 mr-2">https://github.com/nexus</span>
-                <RetroBadge color="amber">URL</RetroBadge>
+          <div className="space-y-2 mt-2">
+            {recentClips.length === 0 ? (
+              <p className="text-sm font-bold text-stone-500 text-center py-4">No recent clips</p>
+            ) : recentClips.map(clip => (
+              <div key={clip.id} className="flex justify-between items-center p-2 border-2 border-stone-900 bg-stone-50 rounded">
+                <span className="text-sm font-bold truncate flex-1 mr-2">
+                  {clip.type === 'image' ? 'Image Data' : clip.content}
+                </span>
+                <RetroBadge color={clip.type === 'url' ? 'sky' : 'amber'}>{clip.type}</RetroBadge>
               </div>
             ))}
           </div>
+          <Link href="/clipboard" className="mt-4 block w-full">
+            <RetroButton label="View All" variant="primary" fullWidth />
+          </Link>
         </RetroCard>
 
         <RetroCard title="Latest Media" icon={ImageIcon} accentColor="fuchsia">
-          <div className="grid grid-cols-2 gap-2">
-            {[1, 2].map(i => (
-              <div key={i} className="aspect-video bg-stone-300 border-2 border-stone-900 rounded flex items-center justify-center">
-                <ImageIcon className="text-stone-500" />
+          <div className="grid grid-cols-2 gap-2 mt-2">
+            {recentMedia.length === 0 ? (
+              <div className="col-span-2 text-sm font-bold text-stone-500 text-center py-4">No media uploaded</div>
+            ) : recentMedia.map(media => (
+              <div key={media.id} className="aspect-square bg-stone-200 border-2 border-stone-900 rounded flex items-center justify-center overflow-hidden">
+                {media.thumbnail_url ? (
+                  <img src={media.thumbnail_url} alt={media.file_name} className="w-full h-full object-cover" />
+                ) : (
+                  <ImageIcon className="text-stone-500" />
+                )}
               </div>
             ))}
           </div>
+          <Link href="/media" className="mt-4 block w-full">
+            <RetroButton label="View Gallery" variant="primary" fullWidth />
+          </Link>
         </RetroCard>
 
         <RetroCard title="Saved Links" icon={Link2} accentColor="sky">
-           <div className="space-y-2">
-            {[1, 2].map(i => (
-              <div key={i} className="flex flex-col p-2 border-2 border-stone-900 bg-stone-50 rounded">
-                <span className="text-sm font-bold truncate">Next.js Documentation</span>
-                <span className="text-xs text-stone-500">Technology</span>
-              </div>
+           <div className="space-y-2 mt-2">
+            {recentUrls.length === 0 ? (
+              <p className="text-sm font-bold text-stone-500 text-center py-4">No saved links</p>
+            ) : recentUrls.map(url => (
+              <a key={url.id} href={url.content.startsWith('http') ? url.content : `https://${url.content}`} target="_blank" rel="noreferrer" className="flex flex-col p-2 border-2 border-stone-900 bg-stone-50 rounded hover:bg-sky-100 transition-colors">
+                <span className="text-sm font-bold truncate text-sky-700">{url.content}</span>
+                <span className="text-xs text-stone-500 mt-1">From: {url.device_source}</span>
+              </a>
             ))}
           </div>
         </RetroCard>

@@ -1,12 +1,14 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { 
-  LayoutDashboard, Clipboard, Image, FolderOpen, 
-  BookOpen, Link2, Timer, BarChart2, Lock, Bot 
+  LayoutDashboard, Clipboard, Image, FolderOpen,
+  BookOpen, Link2, Timer, BarChart2, Lock, Bot, LogIn, LogOut, User, Trash2
 } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
+import { useEffect, useState } from 'react';
 
 const navItems = [
   { icon: LayoutDashboard, label: "Dashboard",  path: "/dashboard",  color: "text-stone-400", activeColor: "text-stone-100", activeBg: "bg-stone-800" },
@@ -19,10 +21,34 @@ const navItems = [
   { icon: BarChart2,       label: "Analytics",  path: "/analytics",  color: "text-violet-400", activeColor: "text-violet-400", activeBg: "bg-stone-800" },
   { icon: Lock,            label: "Vault",      path: "/vault",      color: "text-red-400", activeColor: "text-red-400", activeBg: "bg-stone-800" },
   { icon: Bot,             label: "Claw",       path: "/claw",       color: "text-emerald-400", activeColor: "text-emerald-400", activeBg: "bg-stone-800" },
+  { icon: Trash2,          label: "Recycle Bin",path: "/recycle-bin",color: "text-red-400", activeColor: "text-red-400", activeBg: "bg-stone-800" },
 ];
 
-export const RetroSidebar = () => {
+export const RetroSidebar = ({ onNavigate }: { onNavigate?: () => void }) => {
   const pathname = usePathname() || '';
+  const router = useRouter();
+  const [session, setSession] = useState<any>(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const handleLogin = () => {
+    router.push('/login');
+    if (onNavigate) onNavigate();
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+  };
 
   return (
     <aside className="w-64 bg-stone-900 border-r-4 border-stone-950 flex flex-col h-screen">
@@ -42,6 +68,7 @@ export const RetroSidebar = () => {
             <Link 
               key={item.path} 
               href={item.path}
+              onClick={onNavigate}
               className={cn(
                 "flex items-center gap-3 px-3 py-2 rounded border-2 font-[family-name:var(--font-space)] font-bold transition-colors",
                 isActive 
@@ -56,8 +83,31 @@ export const RetroSidebar = () => {
         })}
       </nav>
       
-      <div className="p-4 border-t-4 border-stone-950">
-        <div className="text-xs font-[family-name:var(--font-space-mono)] text-stone-500 uppercase tracking-wider text-center">
+      <div className="p-4 border-t-4 border-stone-950 flex flex-col gap-2">
+        {session ? (
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center gap-2 px-2 py-1 bg-stone-800 rounded border-2 border-stone-950 text-stone-300 text-xs truncate">
+              <User size={14} className="text-amber-400 shrink-0" />
+              <span className="truncate">{session.user.email}</span>
+            </div>
+            <button 
+              onClick={handleLogout}
+              className="flex items-center justify-center gap-2 px-3 py-2 bg-red-400 hover:bg-red-500 text-stone-900 border-2 border-stone-950 rounded font-bold transition-colors w-full"
+            >
+              <LogOut size={16} />
+              <span>Sign Out</span>
+            </button>
+          </div>
+        ) : (
+          <button 
+            onClick={handleLogin}
+            className="flex items-center justify-center gap-2 px-3 py-2 bg-amber-400 hover:bg-amber-500 text-stone-900 border-2 border-stone-950 rounded font-bold transition-colors w-full"
+          >
+            <LogIn size={16} />
+            <span>Sign In</span>
+          </button>
+        )}
+        <div className="text-xs font-[family-name:var(--font-space-mono)] text-stone-500 uppercase tracking-wider text-center mt-2">
           v1.0.0
         </div>
       </div>

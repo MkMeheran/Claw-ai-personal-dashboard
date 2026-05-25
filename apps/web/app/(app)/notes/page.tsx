@@ -5,7 +5,7 @@ import { RetroCard } from '@/components/ui/RetroCard';
 import { RetroButton } from '@/components/ui/RetroButton';
 import { RetroInput } from '@/components/ui/RetroInput';
 import { RetroBadge } from '@/components/ui/RetroBadge';
-import { BookOpen, Plus, Tag as TagIcon, Trash2, Edit3, X, Search } from 'lucide-react';
+import { BookOpen, Plus, Tag as TagIcon, Trash2, Edit3, X, Search, RefreshCw } from 'lucide-react';
 import { useNotesStore, Note, Tag } from '@/store/useNotesStore';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -26,6 +26,13 @@ export default function NotesPage() {
   const [isTagModalOpen, setIsTagModalOpen] = useState(false);
   const [newTagName, setNewTagName] = useState('');
   const [newTagColor, setNewTagColor] = useState('#84cc16'); // default lime
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await Promise.all([fetchTags(), fetchNotes()]);
+    setTimeout(() => setIsRefreshing(false), 500);
+  };
 
   useEffect(() => {
     fetchTags();
@@ -87,7 +94,13 @@ export default function NotesPage() {
             Knowledge base and quick capture notes.
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
+          <RetroButton 
+            onClick={handleRefresh} 
+            icon={RefreshCw} 
+            label=""
+            className={isRefreshing ? 'animate-spin' : ''} 
+          />
           <RetroButton onClick={() => setIsTagModalOpen(true)} label="Tags" icon={TagIcon} variant="stone" />
           <RetroButton onClick={() => openEditor()} label="New Note" icon={Plus} variant="success" />
         </div>

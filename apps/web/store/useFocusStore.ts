@@ -17,6 +17,7 @@ interface FocusState {
   isLoading: boolean;
   fetchSessions: () => Promise<void>;
   addSession: (session: Partial<FocusSession>) => Promise<void>;
+  deleteSession: (id: string) => Promise<void>;
 }
 
 export const useFocusStore = create<FocusState>((set, get) => ({
@@ -37,6 +38,11 @@ export const useFocusStore = create<FocusState>((set, get) => ({
       .eq('user_id', userId)
       .order('created_at', { ascending: false });
 
+    if (error) {
+      console.error("Fetch Sessions Error:", error);
+      alert(`Error fetching focus sessions: ${error.message}`);
+    }
+
     if (!error && data) {
       set({ sessions: data as FocusSession[] });
     }
@@ -53,8 +59,23 @@ export const useFocusStore = create<FocusState>((set, get) => ({
       .select()
       .single();
 
-    if (!error && data) {
+    if (error) {
+      console.error("Failed to add focus session:", error);
+      alert(`Failed to save focus session: ${error.message}`);
+      return;
+    }
+
+    if (data) {
       set((state) => ({ sessions: [data as FocusSession, ...state.sessions] }));
+    }
+  },
+  deleteSession: async (id: string) => {
+    const { error } = await supabase.from('focus_sessions').delete().eq('id', id);
+    if (error) {
+      console.error("Failed to delete focus session:", error);
+      alert(`Failed to delete session: ${error.message}`);
+    } else {
+      set((state) => ({ sessions: state.sessions.filter(s => s.id !== id) }));
     }
   }
 }));

@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getDriveClient } from '@/lib/drive';
-import stream from 'stream';
+import { Readable } from 'stream';
 
 export async function POST(request: Request) {
   try {
@@ -14,8 +14,6 @@ export async function POST(request: Request) {
 
     const drive = getDriveClient(token);
     const buffer = Buffer.from(await file.arrayBuffer());
-    const bufferStream = new stream.PassThrough();
-    bufferStream.end(buffer);
 
     const res = await drive.files.create({
       requestBody: {
@@ -25,7 +23,7 @@ export async function POST(request: Request) {
       },
       media: {
         mimeType: file.type,
-        body: bufferStream,
+        body: Readable.from(buffer),
       },
       fields: 'id, webViewLink, thumbnailLink'
     });

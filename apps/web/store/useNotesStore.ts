@@ -65,6 +65,11 @@ export const useNotesStore = create<NotesState>((set, get) => ({
       .eq('is_archived', false)
       .order('updated_at', { ascending: false });
 
+    if (error) {
+      console.error("Fetch Notes Error:", error);
+      alert(`Error fetching notes: ${error.message}`);
+    }
+
     if (!error && data) {
       const formattedNotes = data.map((note: any) => ({
         ...note,

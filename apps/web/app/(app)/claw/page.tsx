@@ -34,16 +34,41 @@ export default function ClawPage() {
     setInput('');
     setIsTyping(true);
 
-    // Simulate AI response
-    setTimeout(() => {
+    try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      
+      const response = await fetch('/api/gemini', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${sessionData.session?.access_token}`,
+        },
+        body: JSON.stringify({
+          messages: [...messages, userMsg],
+        }),
+      });
+
+      const data = await response.json();
+      
+      if (!response.ok) throw new Error(data.error);
+
       const aiMsg: Message = { 
         id: (Date.now() + 1).toString(), 
         role: 'assistant', 
-        content: `I've received your message: "${userMsg.content}". In a full implementation, I would analyze your workspace and assist you here!` 
+        content: data.response 
       };
       setMessages(prev => [...prev, aiMsg]);
+    } catch (error: any) {
+      console.error(error);
+      const errorMsg: Message = { 
+        id: (Date.now() + 1).toString(), 
+        role: 'assistant', 
+        content: `Error: ${error.message || 'Failed to connect to Claw.'}` 
+      };
+      setMessages(prev => [...prev, errorMsg]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
+    }
   };
 
   return (

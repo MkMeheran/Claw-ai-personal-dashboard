@@ -4,16 +4,23 @@ import { useEffect, useState } from 'react';
 import { RetroCard } from '@/components/ui/RetroCard';
 import { RetroButton } from '@/components/ui/RetroButton';
 import { RetroInput } from '@/components/ui/RetroInput';
-import { Timer, Play, Square, Save, BarChart } from 'lucide-react';
+import { Timer, Play, Square, Save, BarChart, RefreshCw, Trash2 } from 'lucide-react';
 import { useFocusStore } from '@/store/useFocusStore';
 import { BarChart as RechartsBarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export default function FocusPage() {
-  const { sessions, isLoading, fetchSessions, addSession } = useFocusStore();
+  const { sessions, isLoading, fetchSessions, addSession, deleteSession } = useFocusStore();
   
   const [timeLeft, setTimeLeft] = useState(25 * 60);
   const [isActive, setIsActive] = useState(false);
   const [subject, setSubject] = useState('');
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await fetchSessions();
+    setTimeout(() => setIsRefreshing(false), 500);
+  };
   
   useEffect(() => {
     fetchSessions();
@@ -77,6 +84,12 @@ export default function FocusPage() {
             Pomodoro sessions and study logs.
           </p>
         </div>
+        <RetroButton 
+          onClick={handleRefresh} 
+          icon={RefreshCw} 
+          label=""
+          className={isRefreshing ? 'animate-spin' : ''} 
+        />
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -147,8 +160,20 @@ export default function FocusPage() {
                 <span className="font-bold text-stone-900">{session.subject}</span>
                 <span className="text-xs text-stone-500 font-[family-name:var(--font-space-mono)]">{new Date(session.created_at).toLocaleString()}</span>
               </div>
-              <div className="font-black font-[family-name:var(--font-space-mono)] text-orange-600">
-                {session.duration_minutes}m
+              <div className="flex items-center gap-4">
+                <div className="font-black font-[family-name:var(--font-space-mono)] text-orange-600">
+                  {session.duration_minutes}m
+                </div>
+                <button 
+                  onClick={() => {
+                    if (confirm("Delete this focus session?")) {
+                      deleteSession(session.id);
+                    }
+                  }}
+                  className="text-stone-400 hover:text-red-500 transition-colors p-1"
+                >
+                  <Trash2 size={16} />
+                </button>
               </div>
             </div>
           ))}

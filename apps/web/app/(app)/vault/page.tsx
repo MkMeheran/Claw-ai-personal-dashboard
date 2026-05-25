@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { RetroCard } from '@/components/ui/RetroCard';
 import { RetroButton } from '@/components/ui/RetroButton';
 import { RetroInput } from '@/components/ui/RetroInput';
-import { Shield, Lock, Unlock, Copy, Trash2, Eye, EyeOff, Plus } from 'lucide-react';
+import { Shield, Lock, Unlock, Copy, Trash2, Eye, EyeOff, Plus, RefreshCw } from 'lucide-react';
 import { useVaultStore } from '@/store/useVaultStore';
 import { cn } from '@/lib/utils';
 
@@ -16,6 +16,13 @@ export default function VaultPage() {
   const [newSecret, setNewSecret] = useState('');
   
   const [visibleSecrets, setVisibleSecrets] = useState<Record<string, boolean>>({});
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await useVaultStore.getState().fetchSecrets();
+    setTimeout(() => setIsRefreshing(false), 500);
+  };
 
   const handleUnlock = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,7 +58,7 @@ export default function VaultPage() {
           Your secrets are encrypted locally using AES-256 before syncing to the cloud. Enter your master password to unlock.
         </p>
         
-        <RetroCard className="w-full max-w-md p-6">
+        <RetroCard title="Unlock Vault" className="w-full max-w-md p-6">
           <form onSubmit={handleUnlock} className="space-y-4">
             <RetroInput 
               type="password" 
@@ -78,7 +85,15 @@ export default function VaultPage() {
             Securely encrypted local secrets.
           </p>
         </div>
-        <RetroButton onClick={lockVault} label="Lock Vault" icon={Lock} variant="danger" />
+        <div className="flex items-center gap-2">
+          <RetroButton 
+            onClick={handleRefresh} 
+            icon={RefreshCw} 
+            label=""
+            className={isRefreshing ? 'animate-spin' : ''} 
+          />
+          <RetroButton onClick={lockVault} label="Lock Vault" icon={Lock} variant="danger" />
+        </div>
       </header>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@supabase/supabase-js": "^2.106.1",
     "@tailwindcss/typography": "^0.5.19",
     "crypto-js": "^4.2.0",
     "googleapis": "^172.0.0",
     "lucide-react": "^1.16.0",
     "next": "14.2.35",
+    "nodemailer": "^8.0.8",
     "qrcode.react": "^4.2.0",
     "react": "^18",
     "react-dom": "^18",
@@ -26,6 +28,7 @@
   "devDependencies": {
     "@types/crypto-js": "^4.2.2",
     "@types/node": "^20",
+    "@types/nodemailer": "^8.0.0",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",

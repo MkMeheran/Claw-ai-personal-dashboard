@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { RetroCard } from '@/components/ui/RetroCard';
 import { RetroButton } from '@/components/ui/RetroButton';
-import { Image as ImageIcon, Upload, Copy, ExternalLink, Trash2 } from 'lucide-react';
+import { Image as ImageIcon, Upload, Copy, ExternalLink, Trash2, RefreshCw } from 'lucide-react';
 import { useMediaStore } from '@/store/useMediaStore';
 import { supabase } from '@/lib/supabase';
 import { cn } from '@/lib/utils';
@@ -11,54 +11,64 @@ import { cn } from '@/lib/utils';
 export default function MediaPage() {
   const { items, isLoading, fetchMedia } = useMediaStore();
   const [isUploading, setIsUploading] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await fetchMedia();
+    setTimeout(() => setIsRefreshing(false), 500);
+  };
 
   useEffect(() => {
     fetchMedia();
   }, []);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
 
     setIsUploading(true);
     try {
       const { data: sessionData } = await supabase.auth.getSession();
       const userId = sessionData.session?.user?.id;
-      const token = sessionData.session?.provider_token;
+      const token = localStorage.getItem('google_provider_token');
       
       if (!token) {
         throw new Error('No Google Drive access token found. Please re-login with Google.');
       }
       
-      const formData = new FormData();
-      formData.append('file', file);
-      formData.append('token', token);
+      const uploadPromises = Array.from(files).map(async (file) => {
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('token', token);
 
-      const res = await fetch('/api/drive', {
-        method: 'POST',
-        body: formData
+        const res = await fetch('/api/drive', {
+          method: 'POST',
+          body: formData
+        });
+
+        let data;
+        if (res.ok) {
+          data = await res.json();
+        } else {
+          // Fallback for demo: just store in Supabase without Drive
+          data = { id: 'stub_id', url: '#', thumbnail: null };
+        }
+
+        // Save metadata to supabase
+        return supabase.from('media_items').insert({
+          user_id: userId,
+          drive_file_id: data.id,
+          drive_url: data.url,
+          thumbnail_url: data.thumbnail,
+          file_name: file.name,
+          file_type: file.type,
+          size_bytes: file.size
+        });
       });
 
-      let data;
-      if (res.ok) {
-        data = await res.json();
-      } else {
-        // Fallback for demo: just store in Supabase without Drive
-        data = { id: 'stub_id', url: '#', thumbnail: null };
-      }
-
-      // Save metadata to supabase
-      await supabase.from('media_items').insert({
-        user_id: userId,
-        drive_file_id: data.id,
-        drive_url: data.url,
-        thumbnail_url: data.thumbnail,
-        file_name: file.name,
-        file_type: file.type,
-        size_bytes: file.size
-      });
-
+      await Promise.all(uploadPromises);
       fetchMedia();
     } catch (error: any) {
       console.error(error);
@@ -96,6 +106,13 @@ export default function MediaPage() {
             className="hidden" 
             onChange={handleFileChange}
             accept="image/*,video/*"
+            multiple
+          />
+          <RetroButton 
+            onClick={handleRefresh} 
+            icon={RefreshCw} 
+            label=""
+            className={isRefreshing ? 'animate-spin' : ''} 
           />
           <RetroButton 
             onClick={() => fileInputRef.current?.click()} 

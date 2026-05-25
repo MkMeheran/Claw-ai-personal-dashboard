@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { supabase } from '@/lib/supabase';
 
-export type ClipboardType = 'text' | 'url' | 'code' | 'address';
+export type ClipboardType = 'text' | 'url' | 'code' | 'address' | 'image';
 
 export interface ClipboardItem {
   id: string;
@@ -28,6 +28,7 @@ interface ClipboardState {
 }
 
 const detectType = (content: string): ClipboardType => {
+  if (content.startsWith('data:image/')) return 'image';
   if (/^https?:\/\//i.test(content.trim())) return 'url';
   if (/([{};]|\b(const|let|var|function|class|import)\b|<\/?\w+>)/.test(content)) return 'code';
   if (/^\d+\s+[A-Za-z\s]+(,\s*[A-Za-z\s]+)?(,\s*[A-Z]{2}\s+\d{5})?/i.test(content)) return 'address';
@@ -39,11 +40,19 @@ export const useClipboardStore = create<ClipboardState>((set, get) => ({
   isLoading: false,
   setItems: (items) => set({ items }),
   addItem: (item) => set((state) => {
-    // Keep max 50 items
+    // Prevent duplicate contents (merges realtime broadcast with optimistic insert)
+    const existing = state.items.find(i => i.content === item.content);
+    if (existing) {
+      // Replace the old (potentially temp) item with the new real item
+      const newItems = [item, ...state.items.filter(i => i.id !== existing.id)].slice(0, 50);
+      return { items: newItems.sort((a, b) => Number(b.is_pinned) - Number(a.is_pinned) || new Date(b.created_at).getTime() - new Date(a.created_at).getTime()) };
+    }
+    
     const newItems = [item, ...state.items.filter(i => i.id !== item.id)].slice(0, 50);
     return { items: newItems.sort((a, b) => Number(b.is_pinned) - Number(a.is_pinned) || new Date(b.created_at).getTime() - new Date(a.created_at).getTime()) };
   }),
   updateItem: (id, updates) => set((state) => {
+    // If the updates contain a new 'id' (from optimistic replacement), we must update the ID too
     const newItems = state.items.map((item) => (item.id === id ? { ...item, ...updates } : item));
     return { items: newItems.sort((a, b) => Number(b.is_pinned) - Number(a.is_pinned) || new Date(b.created_at).getTime() - new Date(a.created_at).getTime()) };
   }),

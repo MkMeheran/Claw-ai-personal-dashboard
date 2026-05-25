@@ -31,7 +31,11 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
       return;
     }
 
-    const { data } = await supabase.from('daily_logs').select('*').eq('user_id', userId).order('date', { ascending: false });
+    const { data, error } = await supabase.from('daily_logs').select('*').eq('user_id', userId).order('date', { ascending: false });
+    if (error) {
+      console.error("Fetch Logs Error:", error);
+      alert(`Error fetching analytics: ${error.message}`);
+    }
     if (data) set({ logs: data as DailyLog[] });
     set({ isLoading: false });
   },
@@ -45,9 +49,11 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
     const existing = get().logs.find(l => l.date === log.date);
     
     if (existing) {
-      await supabase.from('daily_logs').update(log).eq('id', existing.id);
+      const { error } = await supabase.from('daily_logs').update(log).eq('id', existing.id);
+      if (error) alert(`Failed to update log: ${error.message}`);
     } else {
-      await supabase.from('daily_logs').insert({ ...log, user_id: userId });
+      const { error } = await supabase.from('daily_logs').insert({ ...log, user_id: userId });
+      if (error) alert(`Failed to insert log: ${error.message}`);
     }
     
     get().fetchLogs();
