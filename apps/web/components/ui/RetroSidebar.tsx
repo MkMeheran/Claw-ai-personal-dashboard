@@ -27,6 +27,7 @@ const navItems = [
 export const RetroSidebar = ({ onNavigate }: { onNavigate?: () => void }) => {
   const pathname = usePathname() || '';
   const router = useRouter();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [session, setSession] = useState<any>(null);
 
   useEffect(() => {
