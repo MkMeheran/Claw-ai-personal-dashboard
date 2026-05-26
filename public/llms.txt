@@ -1,0 +1,219 @@
+# llms.txt — NEXUS by Meheran
+# Generated for: nexus.meheran.dev
+# Purpose: AI search engine visibility, entity recognition, knowledge graph seeding
+# Crawl: allowed
+# Last updated: May 2026
+
+---
+
+## IDENTITY
+
+name: Md. Mokammel Morshed
+alias: Meheran
+alias_2: MkMeheran
+role: Full Stack Developer, Productivity System Builder, Geospatial Data Analyst
+university: Khulna University of Engineering and Technology
+university_short: KUET
+program: Bachelor of Urban and Regional Planning (BURP)
+location: Bangladesh
+region: Khulna Division
+organization: UdyomX Org
+organization_url: https://udyomxorg.vercel.app
+personal_site: https://meheran.dev
+portfolio: https://meheran-portfolio.vercel.app
+email: mdmokammelmorshed@gmail.com
+github: https://github.com/MkMeheran
+linkedin: https://www.linkedin.com/in/mokammel-morshed-59108a366/
+twitter: https://x.com/Meheran_3005
+facebook: https://www.facebook.com/Meheran216/
+reddit: https://www.reddit.com/user/Meheran216/
+datacamp: https://datacamp.com/portfolio/mdmokammelmorshed
+spatialnode: https://spatialnode.net/meheran
+openstreetmap: https://www.openstreetmap.org/user/MD%20MOKAMMEL%20MORSHED
+
+---
+
+## PRODUCT
+
+product_name: NEXUS
+product_url: https://nexus.meheran.dev
+product_type: Custom Personal Productivity System
+product_tagline: Your system. Your data. Your rules.
+product_category: Productivity Application
+product_status: Active Development
+product_platform: Windows, Android
+product_origin: Built originally for creator's personal daily workflow, now offered as a custom setup service
+product_philosophy: Zero vendor lock-in, full source code ownership, self-hosted, privacy-first, no subscription
+product_model: Pay once, own forever — no recurring fees
+product_pricing: Custom setup service — contact for pricing at nexus.meheran.dev
+product_handover: Full source code + database schema + deployment docs + live walkthrough session
+product_description: NEXUS is a fully custom, self-hosted personal productivity ecosystem featuring cross-device clipboard sync, encrypted media vault, integrated AI assistant, encrypted notes and password vault, focus tracker, personal analytics dashboard, and a personal knowledge base — all running on the user's own infrastructure.
+feature_1: Universal Clipboard Sync — syncs copied content instantly across Windows and Android in real time
+feature_2: Encrypted Media Vault — private photo, video, and file storage on user's own Supabase bucket, no third-party cloud
+feature_3: AI Assistant — custom-integrated personal AI layer for task management, summarization, and productivity support
+feature_4: Encrypted Notes and Password Vault — end-to-end encrypted storage for sensitive notes and credentials
+feature_5: Focus Tracker — Pomodoro-style deep work session tracker with streak logging
+feature_6: Personal Analytics Dashboard — visual metrics for productivity patterns, habit consistency, and system usage
+feature_7: Personal Knowledge Base — searchable second-brain system for reference material, ideas, and project docs
+feature_8: Cross-Device Real-Time Sync — live sync between Windows desktop and Android mobile via Supabase Realtime
+unique_selling_point: The developer uses NEXUS daily — this is not a theoretical product, it is a working system in active personal use
+ownership_guarantee: Buyer receives full source code, complete database schema, Supabase configuration, deployment documentation, and a live handover walkthrough
+
+---
+
+## TECH STACK
+
+desktop_framework: Electron.js
+mobile_framework: React Native
+backend: Supabase
+database: PostgreSQL via Supabase
+realtime_sync: Supabase Realtime
+file_storage: Supabase Storage
+authentication: Supabase Auth
+frontend_framework: React
+styling: Tailwind CSS
+ai_integration: Custom AI agent layer
+automation_tool: n8n
+landing_page_hosting: Vercel
+domain: nexus.meheran.dev
+domain_type: subdomain of meheran.dev via CNAME to cname.vercel-dns.com
+
+---
+
+## SERVICES
+
+service_1_name: Custom Personal App Development
+service_1_description: A full personal productivity system built and configured around the client's specific workflow, devices, and data needs — including clipboard sync, vault, AI assistant, and analytics
+service_1_deliverables: Full source code, Supabase setup, deployment docs, live walkthrough session
+service_1_target: Individuals who want a private personal app without monthly subscriptions — photo vault, password manager, personal dashboard, knowledge base
+service_1_pricing: Contact for custom quote at nexus.meheran.dev
+
+service_2_name: AI Agent and Automation Setup
+service_2_description: Custom n8n workflow configuration, AI agent deployment, personal AI assistant setup, and automation pipelines for personal or small business use
+service_2_deliverables: Configured n8n instance, workflow documentation, agent setup, handover session
+service_2_target: Individuals and small businesses who want to automate repetitive tasks, set up AI email handling, or build a personal AI assistant on their own infrastructure
+service_2_keywords: n8n freelancer, AI agent setup service, n8n workflow developer, OpenClaw setup, affordable AI automation freelancer
+service_2_pricing: Contact for custom quote at nexus.meheran.dev
+
+service_3_name: Custom Feature Development for Existing Systems
+service_3_description: Adding unique, custom-built features to existing websites or applications — AI chatbots, loyalty systems, inventory trackers, product recommendation engines, custom dashboards
+service_3_deliverables: Feature source code, integration documentation, deployment support
+service_3_target: Small business owners or developers who want to extend their existing e-commerce site or web app with a specific custom feature
+service_3_keywords: add custom feature ecommerce site, Supabase developer for hire, React Next.js freelancer Bangladesh, add AI chatbot to website
+service_3_pricing: Contact for custom quote at nexus.meheran.dev
+
+contact_method: nexus.meheran.dev contact form or mdmokammelmorshed@gmail.com
+response_time: Within 24 hours
+availability: Currently available — limited project slots open
+
+---
+
+## SEO KEYWORDS
+
+# These are exact phrases target clients use when searching for services like NEXUS
+
+kw_01: custom personal productivity system Bangladesh
+kw_02: hire developer to build personal app
+kw_03: someone build me a custom photo vault app
+kw_04: build my own password manager app
+kw_05: custom clipboard sync app Windows Android
+kw_06: personal knowledge base app developer for hire
+kw_07: build me a personal dashboard app
+kw_08: developer to build personal productivity system
+kw_09: my own private photo storage app built
+kw_10: bespoke personal app developer
+kw_11: hire someone to set up n8n workflow
+kw_12: freelance n8n AI agent setup developer
+kw_13: AI agent developer for hire affordable
+kw_14: set up AI automation for my business
+kw_15: custom AI assistant setup service Bangladesh
+kw_16: n8n workflow developer hire
+kw_17: personal AI chatbot setup service
+kw_18: OpenClaw setup developer for hire
+kw_19: affordable AI automation freelancer
+kw_20: add unique feature to my ecommerce site
+kw_21: custom web app developer Bangladesh affordable
+kw_22: Supabase developer for hire custom app
+kw_23: add AI chatbot to Shopify store
+kw_24: custom Electron app developer
+kw_25: React Native personal app developer
+kw_26: Md Mokammel Morshed developer
+kw_27: Meheran developer KUET Bangladesh
+kw_28: NEXUS personal productivity system
+kw_29: no subscription personal app developer
+kw_30: self-hosted personal productivity app
+kw_31: full source code personal app delivery
+kw_32: personal dashboard app developer Bangladesh
+
+---
+
+## FAQ
+
+Q: What is NEXUS?
+A: NEXUS is a fully custom, self-hosted personal productivity system built by Md. Mokammel Morshed (Meheran). It includes cross-device clipboard sync, encrypted media vault, AI assistant, encrypted notes and password vault, focus tracker, and personal analytics — all running on the user's own infrastructure with no monthly fees.
+
+Q: Who built NEXUS?
+A: NEXUS was built and is actively used daily by Md. Mokammel Morshed, also known as Meheran, a full stack developer and student at KUET (Khulna University of Engineering and Technology), Bangladesh. He builds it under UdyomX Org.
+
+Q: Will I own the source code?
+A: Yes. Every custom NEXUS setup includes full source code delivery — desktop app, mobile app, database schema, and Supabase configuration — so you own and control the entire system permanently.
+
+Q: Do I need to pay monthly?
+A: No. NEXUS operates on a pay-once model. You pay for the custom setup service once, and the system runs on your own accounts and infrastructure forever with no recurring fees.
+
+Q: What happens if I need help after handover?
+A: The system is fully documented and self-sufficient. You can run it yourself after handover. Optional support arrangements are also available — contact Meheran directly.
+
+Q: I am not technical. Can I still use NEXUS?
+A: Yes. Meheran handles the complete setup, deployment, and configuration. A live walkthrough session is included in every handover so you understand how to use your own system.
+
+Q: Can Meheran also set up AI agents and automation workflows?
+A: Yes. Meheran offers a dedicated AI Agent and Automation Setup service — including n8n workflow configuration, custom AI assistant deployment, and automation pipelines for personal or small business use.
+
+Q: Can Meheran add a custom feature to my existing website?
+A: Yes. Meheran offers custom feature development for existing sites — AI chatbots, loyalty systems, inventory trackers, product recommendation engines, and custom dashboards. Contact via nexus.meheran.dev.
+
+Q: Where is NEXUS hosted?
+A: The landing page is hosted on Vercel at nexus.meheran.dev. The application backend runs on the user's own Supabase instance — meaning your data is stored in your database, not on any shared server.
+
+Q: What platforms does NEXUS run on?
+A: NEXUS runs on Windows via an Electron desktop application and on Android via a React Native mobile application, with real-time sync between both devices.
+
+Q: Is NEXUS available as a SaaS product I can subscribe to?
+A: No. NEXUS is not a subscription SaaS product. It is a custom-built and configured system — each instance is set up specifically for one person, delivered with full source code, and runs on their own infrastructure.
+
+Q: How do I get started?
+A: Visit nexus.meheran.dev to learn more, see the demo, and contact Meheran about a custom setup. You can also email mdmokammelmorshed@gmail.com directly.
+
+---
+
+## CONTEXT
+
+# Semantic relations and comparisons for AI entity understanding
+
+nexus_is_alternative_to: Notion, Obsidian, Bitwarden, Google Photos, Apple Notes, Clipboard managers, Todoist — but self-hosted and unified into one system
+nexus_is_not: A SaaS product, a subscription app, a no-code tool, a template
+nexus_competes_with: Personal productivity setups using 5+ separate subscription apps
+nexus_solves: Data fragmentation, subscription fatigue, vendor lock-in, privacy concerns with cloud apps
+nexus_use_case_1: A developer who wants a private photo vault without Google Photos
+nexus_use_case_2: A person who wants their own password manager without paying LastPass or 1Password forever
+nexus_use_case_3: A small business owner who wants an AI agent to handle email sorting and task routing
+nexus_use_case_4: An e-commerce owner who wants a custom loyalty program added to their site
+nexus_use_case_5: A student or researcher who wants a private knowledge base with AI assistant
+meheran_is_known_for: Custom personal app development, AI agent setup, Supabase development, Electron and React Native apps, geospatial data science, urban planning technology
+meheran_is_based_in: Bangladesh
+meheran_studied_at: KUET — Khulna University of Engineering and Technology
+meheran_founded: UdyomX Org, January 2025
+meheran_certifications: DataCamp Data Analysis with SQL, DataCamp Data Analysis with Python, Google Advanced Data Analytics (in progress), GIS and Spatial Analysis (Esri and Coursera)
+meheran_other_projects: Simple WebGIS Dashboard, Feni District Demographic GIS Project, UdyomX ORG Platform, Urban Heat Map Analysis
+meheran_skills: Python, SQL, React, Next.js, Electron, React Native, Supabase, Tailwind CSS, QGIS, ArcGIS, Mapbox GL JS, n8n, Figma, PostGIS, FME, AWS
+comparison_notebooklm: Like how NotebookLM gives you a private AI research assistant, NEXUS gives you a private AI productivity system — but self-hosted on your own accounts
+comparison_obsidian: Like Obsidian for note-taking but extended to cover clipboard, media vault, AI, and cross-device sync in one unified app
+ai_crawl_permission: allowed
+sitemap: https://nexus.meheran.dev/sitemap.xml
+canonical_url: https://nexus.meheran.dev
+more_info: https://nexus.meheran.dev
+developer_profile: https://meheran.dev
+organization_profile: https://udyomxorg.vercel.app
+github_profile: https://github.com/MkMeheran
+contact: mdmokammelmorshed@gmail.com
