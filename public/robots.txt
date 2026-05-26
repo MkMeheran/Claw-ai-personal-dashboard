@@ -1,0 +1,89 @@
+# robots.txt — NEXUS (minimal landing page)
+# UTF-8
+# AI: see /llms.txt for structured AI-readable content
+# Last updated: 2026-05-26
+
+# --- AI crawlers (allow) ---
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# --- Standard search engine bots (allow) ---
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+# --- Default / site rules ---
+User-agent: *
+Allow: /
+
+# Protect internal/private endpoints (disallow)
+Disallow: /api/
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /private/
+Disallow: /_next/
+Disallow: /cdn-cgi/
+Disallow: /*?*
+Disallow: //
+
+# Crawl options (optional advisory)
+Crawl-delay: 1
+
+# Site metadata
+Sitemap: https://nexus.meheran.dev/sitemap.xml
+Host: nexus.meheran.dev
+
+# Notes:
+# - Keep blank lines between user-agent blocks.
+# - Save as UTF-8 without BOM. Do not include trailing spaces.
+# - This site intentionally only exposes the landing page and LLM context files.
