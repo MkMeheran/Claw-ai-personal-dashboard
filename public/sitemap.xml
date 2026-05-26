@@ -3,55 +3,54 @@
   xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
-  <!-- Homepage -->
   <url>
     <loc>https://nexus.meheran.dev/</loc>
     <lastmod>2026-05-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
 
-    <!-- Images (7 screenshots) -->
     <image:image>
       <image:loc>https://i.ibb.co/S4kc3CW6/IMG-20260526-074028.jpg</image:loc>
-      <image:title>NEXUS Dashboard — Personal Productivity System</image:title>
-      <image:caption>NEXUS clipboard sync feature and dashboard view — self-hosted cross-device app</image:caption>
+      <image:title><![CDATA[NEXUS Dashboard — Personal Productivity System]]></image:title>
+      <image:caption><![CDATA[NEXUS clipboard sync feature and dashboard view — self-hosted cross-device app]]></image:caption>
     </image:image>
 
     <image:image>
       <image:loc>https://i.ibb.co/Qvk40GVq/IMG-20260526-074038.jpg</image:loc>
-      <image:title>NEXUS Media Vault — Secure Storage</image:title>
-      <image:caption>Encrypted media vault UI: private photos and file storage on user Supabase bucket</image:caption>
+      <image:title><![CDATA[NEXUS Media Vault — Secure Storage]]></image:title>
+      <image:caption><![CDATA[Encrypted media vault UI: private photos and file storage on user Supabase bucket]]></image:caption>
     </image:image>
 
     <image:image>
       <image:loc>https://i.ibb.co/whSTR13w/IMG-20260526-074051.jpg</image:loc>
-      <image:title>NEXUS Clipboard Panel</image:title>
-      <image:caption>Cross-device clipboard sync panel — quick copy and paste across devices</image:caption>
+      <image:title><![CDATA[NEXUS Clipboard Panel]]></image:title>
+      <image:caption><![CDATA[Cross-device clipboard sync panel — quick copy and paste across devices]]></image:caption>
     </image:image>
 
     <image:image>
       <image:loc>https://i.ibb.co/Csh2HZTc/IMG-20260526-074103.jpg</image:loc>
-      <image:title>NEXUS AI Assistant — Query & Summaries</image:title>
-      <image:caption>AI assistant conversation and summary interface integrated with your personal data</image:caption>
+      <image:title><![CDATA[NEXUS AI Assistant — Query & Summaries]]></image:title>
+      <image:caption><![CDATA[AI assistant conversation and summary interface integrated with your personal data]]></image:caption>
     </image:image>
 
     <image:image>
       <image:loc>https://i.ibb.co/svhGrSgX/IMG-20260526-074122.jpg</image:loc>
-      <image:title>NEXUS Focus Tracker</image:title>
-      <image:caption>Focus session controls and analytics for Pomodoro sessions and habit tracking</image:caption>
+      <image:title><![CDATA[NEXUS Focus Tracker]]></image:title>
+      <image:caption><![CDATA[Focus session controls and analytics for Pomodoro sessions and habit tracking]]></image:caption>
     </image:image>
 
     <image:image>
       <image:loc>https://i.ibb.co/S7x3xDnz/IMG-20260526-074316.jpg</image:loc>
-      <image:title>NEXUS Personal Knowledge Base</image:title>
-      <image:caption>Searchable notes and personal KB UI for storing research and references</image:caption>
+      <image:title><![CDATA[NEXUS Personal Knowledge Base]]></image:title>
+      <image:caption><![CDATA[Searchable notes and personal KB UI for storing research and references]]></image:caption>
     </image:image>
 
     <image:image>
       <image:loc>https://i.ibb.co/yjxJhKp/IMG-20260526-074335.jpg</image:loc>
-      <image:title>NEXUS Settings & Sync Console</image:title>
-      <image:caption>Settings, account & Supabase sync console for the self-hosted NEXUS instance</image:caption>
+      <image:title><![CDATA[NEXUS Settings & Sync Console]]></image:title>
+      <image:caption><![CDATA[Settings, account & Supabase sync console for the self-hosted NEXUS instance]]></image:caption>
     </image:image>
+
   </url>
 
 </urlset>
